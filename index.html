@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicolas & Julieta - Nos Casamos</title>
+    <style>
+        :root {
+            /* Colores principales */
+            --color-green-dark: #5a9b8a;
+            --color-green-light: #7fa08a;
+            --color-green-dark-rgb: 90, 155, 138;
+            --color-green-light-rgb: 127, 160, 138;
+            
+            /* Colores de fondo */
+            --color-cream-base: #f5f1e8;
+            --color-cream-light: #faf8f3;
+            --color-cream-medium: #f0ebe0;
+            --color-cream-rgb: 250, 248, 243;
+            
+            /* Colores de texto */
+            --color-text-dark: #2c2c2c;
+            
+            /* Transparencias */
+            --opacity-subtle: 0.2;
+            --opacity-medium: 0.3;
+            --opacity-strong: 0.4;
+            --opacity-very-strong: 0.5;
+            --opacity-heavy: 0.7;
+            --opacity-very-heavy: 0.85;
+            --opacity-almost-full: 0.9;
+            --opacity-full: 0.95;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--color-cream-base);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--color-text-dark);
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px 120px 20px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Página 1 - Portada */
+        .cover-page {
+            background: linear-gradient(135deg, var(--color-cream-light) 0%, var(--color-cream-medium) 100%);
+            color: var(--color-text-dark);
+        }
+
+        .cover-page h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: var(--color-green-dark);
+        }
+
+        .cover-page .names {
+            font-size: 3rem;
+            margin: 30px 0;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--color-green-light);
+        }
+
+        .cover-page .ampersand {
+            font-size: 2rem;
+            margin: 20px 0;
+            opacity: 0.9;
+        }
+
+        .cover-page .subtitle {
+            font-size: 1.2rem;
+            margin-top: 40px;
+            font-style: italic;
+            color: var(--color-text-dark);
+            opacity: 0.8;
+        }
+
+        /* Contenedores de imágenes */
+        .image-container {
+            width: 100%;
+            max-width: 280px;
+            margin: 20px auto;
+            aspect-ratio: 4/3;
+            background: rgba(var(--color-cream-rgb), var(--opacity-heavy));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(var(--color-green-dark-rgb), var(--opacity-medium));
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .image-container.placeholder::before {
+            content: '📷';
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+
+        .image-container.portrait {
+            max-width: 200px;
+            aspect-ratio: 3/4;
+        }
+
+        .image-container.landscape {
+            max-width: 320px;
+            aspect-ratio: 4/3;
+        }
+
+        .image-container.amarelo-image {
+            min-height: 450px;
+        }
+        .image-container.portada {
+            min-width: 400px;
+            min-height: 450px;
+        }
+
+        /* Página 2 - Fecha */
+        .date-page {
+            background: linear-gradient(135deg, var(--color-cream-base) 0%, var(--color-cream-light) 100%);
+            color: var(--color-text-dark);
+        }
+
+        .date-page h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+            color: var(--color-green-dark);
+        }
+
+        .date-display {
+            font-size: 4rem;
+            font-weight: 300;
+            margin: 20px 0;
+            line-height: 1.2;
+            color: var(--color-green-light);
+        }
+
+        .date-display .day {
+            font-size: 5rem;
+            display: block;
+            margin-bottom: 10px;
+            color: var(--color-green-dark);
+        }
+
+        .date-display .month {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 10px;
+            color: var(--color-green-light);
+        }
+
+        .date-display .year {
+            font-size: 2rem;
+            display: block;
+            color: var(--color-text-dark);
+            opacity: 0.8;
+        }
+
+        .date-page .image-container {
+            margin-top: 30px;
+        }
+
+        /* Página 3 - Invitación */
+        .invitation-page {
+            background: linear-gradient(135deg, var(--color-cream-light) 0%, var(--color-cream-base) 100%);
+            color: var(--color-text-dark);
+        }
+
+        .invitation-page h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--color-green-dark);
+            font-weight: 300;
+        }
+
+        .invitation-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 90%;
+            margin: 0 auto;
+            font-style: italic;
+            color: var(--color-text-dark);
+        }
+
+        .invitation-text p {
+            margin-bottom: 20px;
+        }
+
+        .invitation-page .image-container {
+            margin: 30px auto;
+        }
+
+        /* Página 4 - Lugar y Horario */
+        .location-page {
+            background: linear-gradient(135deg, var(--color-cream-medium) 0%, var(--color-cream-light) 100%);
+            color: var(--color-text-dark);
+        }
+
+        .location-page h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--color-green-dark);
+            font-weight: 300;
+        }
+
+        .location-info {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .location-name {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: var(--color-green-light);
+        }
+
+        .time-info {
+            background: rgba(var(--color-cream-rgb), var(--opacity-very-heavy));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(var(--color-green-dark-rgb), var(--opacity-medium));
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-dark);
+        }
+
+        .time-range {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-green-dark);
+            font-family: 'Courier New', monospace;
+        }
+
+        .map-link {
+            display: inline-block;
+            background: rgba(var(--color-green-light-rgb), var(--opacity-almost-full));
+            color: var(--color-text-dark);
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            margin-top: 20px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(var(--color-green-dark-rgb), var(--opacity-strong));
+        }
+
+        .map-link:hover {
+            background: var(--color-green-light);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-link:active {
+            transform: scale(0.95);
+        }
+
+        .location-page .image-container {
+            margin: 20px auto;
+        }
+
+        /* Página 5 - Ayuda económica */
+        .closing-page {
+            background: linear-gradient(135deg, var(--color-cream-light) 0%, var(--color-cream-base) 100%);
+            color: var(--color-text-dark);
+        }
+
+        .closing-page h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            color: var(--color-green-dark);
+        }
+
+        .closing-page .intro-text {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 90%;
+            color: var(--color-text-dark);
+            opacity: 0.9;
+        }
+
+        .alias-container {
+            background: rgba(var(--color-cream-rgb), var(--opacity-very-heavy));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 90%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(var(--color-green-light-rgb), var(--opacity-strong));
+        }
+
+        .alias-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-dark);
+        }
+
+        .alias-code {
+            font-size: 1.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            background: rgba(var(--color-green-light-rgb), 0.25);
+            color: var(--color-green-dark);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            word-break: break-all;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: all;
+            border: 2px solid rgba(var(--color-green-light-rgb), var(--opacity-strong));
+        }
+
+        .alias-code:hover {
+            background: rgba(var(--color-green-light-rgb), 0.35);
+            transform: scale(1.02);
+        }
+
+        .alias-code:active {
+            transform: scale(0.98);
+        }
+
+        .copy-hint {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 10px;
+            font-style: italic;
+            color: var(--color-text-dark);
+        }
+
+        .closing-page .message {
+            font-size: 1.4rem;
+            margin-top: 30px;
+            font-style: italic;
+            opacity: 0.9;
+            line-height: 1.5;
+            color: var(--color-text-dark);
+        }
+
+
+        .message {
+            font-size: 1.4rem;
+            font-style: italic;
+            opacity: 0.9;
+            line-height: 1.5;
+            color: var(--color-text-dark);
+        }
+
+        .closing-page .image-container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Botón de navegación */
+        .nav-button {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(var(--color-green-light-rgb), var(--opacity-full));
+            color: var(--color-text-dark);
+            border: 2px solid rgba(var(--color-green-dark-rgb), var(--opacity-strong));
+            padding: 15px 40px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            font-weight: 500;
+            z-index: 1000;
+        }
+
+        .nav-button:hover {
+            background: var(--color-green-light);
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        .nav-button.hidden {
+            display: none;
+        }
+
+        /* Indicadores de página */
+        .page-indicators {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(var(--color-green-light-rgb), var(--opacity-very-strong));
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--color-green-light);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Decoración */
+        .decoration {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.1;
+        }
+
+        .decoration.top-left {
+            top: 20px;
+            left: 20px;
+        }
+
+        .decoration.top-right {
+            top: 20px;
+            right: 20px;
+        }
+
+        .decoration.bottom-left {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .decoration.bottom-right {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        /* Responsive para tablets y desktop */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+            }
+
+            .cover-page .names {
+                font-size: 4rem;
+            }
+
+            .date-display .day {
+                font-size: 6rem;
+            }
+
+            .image-container {
+                max-width: 350px;
+            }
+
+            .image-container.portrait {
+                max-width: 250px;
+            }
+
+            .image-container.landscape {
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Indicadores de página -->
+        <div class="page-indicators">
+            <div class="indicator active" data-page="0"></div>
+            <div class="indicator" data-page="1"></div>
+            <div class="indicator" data-page="2"></div>
+            <div class="indicator" data-page="3"></div>
+            <div class="indicator" data-page="4"></div>
+        </div>
+
+        <!-- Página 1: Portada -->
+        <div class="page cover-page active">
+            <div class="decoration top-left">💕</div>
+            <div class="decoration top-right">💕</div>
+            <div class="decoration bottom-left">💕</div>
+            <div class="decoration bottom-right">💕</div>
+            <div class="image-container portrait placeholder portada">
+                <!-- Añade aquí tu imagen: <img src="ruta/a/imagen.jpg" alt="Nicolas y Julieta"> -->
+            </div>
+            <div class="names">
+                <div>Nico & Juli</div>
+            </div>
+        </div>
+
+        <!-- Página 2: Invitación -->
+        <div class="page invitation-page">
+            <div class="decoration top-left">💐</div>
+            <div class="decoration top-right">💐</div>
+            <div class="image-container portrait placeholder portada">
+                <!-- Añade aquí tu imagen: <img src="ruta/a/imagen.jpg" alt="Invitación"> -->
+            </div>
+            <h2>Nos casamos!</h2>
+            <div class="invitation-text">
+                <p>Con mucha alegría queremos compartir este día tan especial con vos.</p>
+                <p style="margin-top: 20px; font-weight: 500;">¡Esperamos verte!</p>
+            </div>
+        </div>
+
+        <!-- Página 3: Fecha -->
+        <div class="page date-page">
+            <div class="decoration top-left">📅</div>
+            <div class="decoration top-right">📅</div>
+            <h2>Te esperamos el</h2>
+            <div class="date-display">
+                <span class="day">30</span>
+                <span class="month">Enero</span>
+                <span class="year">2026</span>
+            </div>
+            <div class="image-container landscape placeholder">
+                <!-- Añade aquí tu imagen: <img src="ruta/a/imagen.jpg" alt="Fecha"> -->
+            </div>
+        </div>
+
+        <!-- Página 4: Lugar y Horario -->
+        <div class="page location-page">
+            <div class="decoration top-left">📍</div>
+            <div class="decoration top-right">📍</div>
+            <div class="location-info">
+                <div class="location-name">Amarelo Eventos Lujan</div>
+                <div class="time-info">
+                    <div class="time-range">12:30 - 17:30 hs</div>
+                </div>
+                <a href="https://www.google.com/maps/place/Amarelo+Eventos+Lujan/@-34.5688925,-59.1178559,17z/data=!4m14!1m7!3m6!1s0x95bc7d988faa1d09:0x7543414c40025bed!2sAmarelo+Eventos+Lujan!8m2!3d-34.5688925!4d-59.115281!16s%2Fg%2F11s92k493r!3m5!1s0x95bc7d988faa1d09:0x7543414c40025bed!8m2!3d-34.5688925!4d-59.115281!16s%2Fg%2F11s92k493r?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="map-link">
+                    📍 Ver en Google Maps
+                </a>
+            </div>
+            <div class="image-container landscape amarelo-image">
+                 <img src="amarelo.jpeg" alt="Lugar">
+            </div>
+            <div class="message">Por favor confirmar asistencia.</div>
+        </div>
+
+        <!-- Página 5: Ayuda económica -->
+        <div class="page closing-page">
+            <div class="decoration top-left">💝</div>
+            <div class="decoration top-right">💝</div>
+            <div class="intro-text">
+                Tu compañia en este dia tan especial nos llena de felicidad, si ademas queres contribuir a nuestro futuro, te lo agradecemos mucho.
+            </div>
+            <div class="alias-container">
+                <div class="alias-label">Alias</div>
+                <div class="alias-code" id="aliasCode">AFRICA.MAYO.ALAMO</div>
+                <div class="copy-hint">Tocá para copiar</div>
+            </div>
+            <div class="message">
+                Tu apoyo significa mucho para nosotros 💕
+            </div>
+        </div>
+
+        <!-- Botón de navegación -->
+        <button class="nav-button" id="nextButton">Siguiente</button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.page');
+        const indicators = document.querySelectorAll('.indicator');
+        const nextButton = document.getElementById('nextButton');
+        const totalPages = pages.length;
+
+        function showPage(index) {
+            // Ocultar todas las páginas
+            pages.forEach(page => page.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+
+            // Mostrar página actual
+            if (pages[index]) {
+                pages[index].classList.add('active');
+                indicators[index].classList.add('active');
+            }
+
+            // Actualizar botón
+            if (index === totalPages - 1) {
+                nextButton.textContent = 'Volver al inicio';
+            } else {
+                nextButton.textContent = 'Siguiente';
+            }
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentPage = (currentPage + 1) % totalPages;
+            showPage(currentPage);
+        });
+
+        // Inicializar
+        showPage(0);
+
+        // Soporte para swipe en móviles
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe izquierda - siguiente página
+                    currentPage = (currentPage + 1) % totalPages;
+                } else {
+                    // Swipe derecha - página anterior
+                    currentPage = (currentPage - 1 + totalPages) % totalPages;
+                }
+                showPage(currentPage);
+            }
+        }
+
+        // Funcionalidad para copiar alias
+        const aliasCode = document.getElementById('aliasCode');
+        if (aliasCode) {
+            aliasCode.addEventListener('click', async () => {
+                const text = aliasCode.textContent;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    const originalText = aliasCode.textContent;
+                    aliasCode.textContent = '¡Copiado! ✓';
+                    aliasCode.style.background = 'rgba(127, 160, 138, 0.5)';
+                    setTimeout(() => {
+                        aliasCode.textContent = originalText;
+                        aliasCode.style.background = 'rgba(127, 160, 138, 0.25)';
+                    }, 2000);
+                } catch (err) {
+                    // Fallback para navegadores que no soportan clipboard API
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        const originalText = aliasCode.textContent;
+                        aliasCode.textContent = '¡Copiado! ✓';
+                        aliasCode.style.background = 'rgba(168, 213, 186, 0.5)';
+                        setTimeout(() => {
+                            aliasCode.textContent = originalText;
+                            aliasCode.style.background = 'rgba(168, 213, 186, 0.25)';
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Error al copiar:', err);
+                    }
+                    document.body.removeChild(textArea);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
